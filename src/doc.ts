@@ -9,4 +9,4 @@ export const generateDocument = (app) => {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/api/doc', app, document);
-}
+};

@@ -19,7 +19,10 @@ import { ConfigService } from '@nestjs/config';
   version: '1',
 })
 export class UserController {
-  constructor(private readonly userService: UserService, private readonly configService: ConfigService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {

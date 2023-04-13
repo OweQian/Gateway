@@ -19,4 +19,3 @@ export const getAppToken = async () => {
   });
   return data as IGetAppTokenRes;
 };
-

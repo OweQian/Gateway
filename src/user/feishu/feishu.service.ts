@@ -1,5 +1,6 @@
 import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { getAppToken } from '@/helper/feishu/auth';
+import { messages } from '@/helper/feishu/message';
 import { Cache } from 'cache-manager';
 import { BusinessException } from '@/common/exceptions/business.exception';
 import { ConfigService } from '@nestjs/config';
@@ -34,5 +35,10 @@ export class FeishuService {
       }
     }
     return appToken;
+  }
+
+  async sendMessage(receive_id_type, params) {
+    const app_token = await this.getAppToken();
+    return messages(receive_id_type, params, app_token);
   }
 }

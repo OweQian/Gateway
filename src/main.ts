@@ -4,9 +4,11 @@ import {
   VERSION_NEUTRAL,
 } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import fastify from 'fastify';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { AllExceptionsFilter } from './common/exceptions/base.exception.filter';
 import { HttpExceptionFilter } from './common/exceptions/http.exception.filter';
+import { FastifyLogger } from '@/common/logger';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -17,11 +19,12 @@ import { AppModule } from './app.module';
 declare const module: any;
 
 async function bootstrap() {
+  const fastifyInstance = fastify({
+    logger: FastifyLogger,
+  });
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter({
-      logger: true,
-    }),
+    new FastifyAdapter(fastifyInstance),
   );
   // 接口版本化管理
   app.enableVersioning({
